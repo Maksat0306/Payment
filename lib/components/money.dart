@@ -39,7 +39,7 @@ class Money extends StatelessWidget {
                     height: 0,
                   ),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 18),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

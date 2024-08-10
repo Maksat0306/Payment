@@ -39,7 +39,7 @@ enum SevicesValue {
       case SevicesValue.iptv:
         return SvgPicture.asset("assets/images/IP TV.svg");
       case SevicesValue.beletFilim:
-        return Image.asset("assets/images/Belet Film.png");
+        return SvgPicture.asset("assets/images/Belet Film.svg");
     }
   }
 }
