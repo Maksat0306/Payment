@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:toleg/components/money.dart';
+import 'package:toleg/components/other_grid_elements.dart';
 import 'package:toleg/screens/payments_screen.dart';
 import '../components/grid_elements.dart';
 import '../constants/colors.dart';
+import '../enums/other_services_value.dart';
 import '../enums/services_value.dart';
 
 class HomeScreenContent extends StatelessWidget {
@@ -56,7 +58,7 @@ class HomeScreenContent extends StatelessWidget {
                 childAspectRatio: 3 / 2,
               ),
               delegate: SliverChildBuilderDelegate(
-                    (context, index) {
+                (context, index) {
                   final service = SevicesValue.values[index];
                   return ServiceCard(
                     icon: service.asIcons,
@@ -70,6 +72,39 @@ class HomeScreenContent extends StatelessWidget {
               ),
             ),
           ),
+
+          SliverToBoxAdapter(
+              // SliverToBoxAdapter kullanımı
+              child: SizedBox(height: 30)),
+
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverGrid(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                childAspectRatio: 4 / 4.5,
+              ),
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  final service = OtherServicesValue.values[index];
+                  return OtherGridElements(
+                    icon: service.asIcons,
+                    title: service.asValue,
+                    onTap: () {
+                      _navigateToOtherService(context, service);
+                    },
+                  );
+                },
+                childCount: OtherServicesValue.values.length,
+              ),
+            ),
+          ),
+
+          SliverToBoxAdapter(
+            // SliverToBoxAdapter kullanımı
+              child: SizedBox(height: 16)),
         ],
       ),
     );
@@ -91,4 +126,36 @@ class HomeScreenContent extends StatelessWidget {
         print('Bu servis için yönlendirme tanımlanmadı.');
     }
   }
+
+  void _navigateToOtherService(BuildContext context, OtherServicesValue service) {
+    switch (service) {
+      case OtherServicesValue.tut:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const PaymentsScreen(), // TutScreen sayfasına yönlendirme
+          ),
+        );
+        break;
+      case OtherServicesValue.jayJemagat:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const PaymentsScreen(), // JayJemagatScreen sayfasına yönlendirme
+          ),
+        );
+        break;
+      case OtherServicesValue.suw:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const PaymentsScreen(), // SuwScreen sayfasına yönlendirme
+          ),
+        );
+        break;
+      default:
+        print('Bu servis için yönlendirme tanımlanmadı.');
+    }
+  }
+
 }
