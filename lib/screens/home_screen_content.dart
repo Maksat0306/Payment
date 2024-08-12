@@ -7,6 +7,7 @@ import '../components/grid_elements.dart';
 import '../constants/colors.dart';
 import '../enums/other_services_value.dart';
 import '../enums/services_value.dart';
+import '../service_screen/tmcell_screen.dart';
 
 class HomeScreenContent extends StatelessWidget {
   const HomeScreenContent({super.key});
@@ -48,6 +49,21 @@ class HomeScreenContent extends StatelessWidget {
               ],
             ),
           ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Text(
+                'Hyzmatlar',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontFamily: 'ClashDisplay',
+                  fontWeight: FontWeight.w500,
+                  height: 0,
+                ),
+              ),
+            ),
+          ),
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverGrid(
@@ -58,7 +74,7 @@ class HomeScreenContent extends StatelessWidget {
                 childAspectRatio: 3 / 2,
               ),
               delegate: SliverChildBuilderDelegate(
-                (context, index) {
+                    (context, index) {
                   final service = SevicesValue.values[index];
                   return ServiceCard(
                     icon: service.asIcons,
@@ -72,11 +88,9 @@ class HomeScreenContent extends StatelessWidget {
               ),
             ),
           ),
-
           SliverToBoxAdapter(
-              // SliverToBoxAdapter kullanımı
+            // SliverToBoxAdapter kullanımı
               child: SizedBox(height: 30)),
-
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverGrid(
@@ -87,7 +101,7 @@ class HomeScreenContent extends StatelessWidget {
                 childAspectRatio: 4 / 4.5,
               ),
               delegate: SliverChildBuilderDelegate(
-                (context, index) {
+                    (context, index) {
                   final service = OtherServicesValue.values[index];
                   return OtherGridElements(
                     icon: service.asIcons,
@@ -101,7 +115,6 @@ class HomeScreenContent extends StatelessWidget {
               ),
             ),
           ),
-
           SliverToBoxAdapter(
             // SliverToBoxAdapter kullanımı
               child: SizedBox(height: 16)),
@@ -110,15 +123,33 @@ class HomeScreenContent extends StatelessWidget {
     );
   }
 
-  void _navigateToService(BuildContext context, SevicesValue service) {
+  void _navigateToService(
+      BuildContext context, SevicesValue service) {
     switch (service) {
       case SevicesValue.tmcell:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+            const TmcellScreen(), // TutScreen sayfasına yönlendirme
+          ),
+        );
+        break;
       case SevicesValue.telecom:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+            const PaymentsScreen(), // JayJemagatScreen sayfasına yönlendirme
+          ),
+        );
+        break;
       case SevicesValue.astu:
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const PaymentsScreen(),
+            builder: (context) =>
+            const PaymentsScreen(), // SuwScreen sayfasına yönlendirme
           ),
         );
         break;
@@ -127,13 +158,15 @@ class HomeScreenContent extends StatelessWidget {
     }
   }
 
-  void _navigateToOtherService(BuildContext context, OtherServicesValue service) {
+  void _navigateToOtherService(
+      BuildContext context, OtherServicesValue service) {
     switch (service) {
       case OtherServicesValue.tut:
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const PaymentsScreen(), // TutScreen sayfasına yönlendirme
+            builder: (context) =>
+            const PaymentsScreen(), // TutScreen sayfasına yönlendirme
           ),
         );
         break;
@@ -141,7 +174,8 @@ class HomeScreenContent extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const PaymentsScreen(), // JayJemagatScreen sayfasına yönlendirme
+            builder: (context) =>
+            const PaymentsScreen(), // JayJemagatScreen sayfasına yönlendirme
           ),
         );
         break;
@@ -149,7 +183,8 @@ class HomeScreenContent extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const PaymentsScreen(), // SuwScreen sayfasına yönlendirme
+            builder: (context) =>
+            const PaymentsScreen(), // SuwScreen sayfasına yönlendirme
           ),
         );
         break;
@@ -157,5 +192,4 @@ class HomeScreenContent extends StatelessWidget {
         print('Bu servis için yönlendirme tanımlanmadı.');
     }
   }
-
 }

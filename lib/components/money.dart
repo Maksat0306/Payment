@@ -5,7 +5,7 @@ import '../constants/colors.dart';
 class Money extends StatelessWidget {
   const Money({super.key});
 
-  final double value = 80.31; // Sunucudan gelen double değer
+  final double value = 104.44; // Sunucudan gelen double değer
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class Money extends StatelessWidget {
         valueString.split('.'); // Noktadan önce ve sonra ayırır
 
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
       child: Column(
         children: [
           Container(
@@ -50,7 +50,7 @@ class Money extends StatelessWidget {
                             text: parts[0], // Noktadan önceki kısım
                             style: const TextStyle(
                               color: Colors.white,
-                              fontSize: 42,
+                              fontSize: 46,
                               fontFamily: 'ClashDisplay',
                               fontWeight: FontWeight.w600,
                               height: 1.2,
@@ -60,7 +60,7 @@ class Money extends StatelessWidget {
                             text: '.${parts[1]}', // Noktadan sonraki kısım
                             style: const TextStyle(
                               color: Color(0xFF8D8C8D),
-                              fontSize: 42,
+                              fontSize: 46,
                               fontFamily: 'ClashDisplay',
                               fontWeight: FontWeight.w600,
                               height: 1.2,
