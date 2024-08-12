@@ -48,6 +48,21 @@ class HomeScreenContent extends StatelessWidget {
               ],
             ),
           ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Text(
+                'Hyzmatlar',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontFamily: 'ClashDisplay',
+                  fontWeight: FontWeight.w500,
+                  height: 0,
+                ),
+              ),
+            ),
+          ),
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverGrid(
@@ -72,11 +87,9 @@ class HomeScreenContent extends StatelessWidget {
               ),
             ),
           ),
-
           SliverToBoxAdapter(
               // SliverToBoxAdapter kullanımı
               child: SizedBox(height: 30)),
-
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverGrid(
@@ -101,9 +114,8 @@ class HomeScreenContent extends StatelessWidget {
               ),
             ),
           ),
-
           SliverToBoxAdapter(
-            // SliverToBoxAdapter kullanımı
+              // SliverToBoxAdapter kullanımı
               child: SizedBox(height: 16)),
         ],
       ),
@@ -127,13 +139,15 @@ class HomeScreenContent extends StatelessWidget {
     }
   }
 
-  void _navigateToOtherService(BuildContext context, OtherServicesValue service) {
+  void _navigateToOtherService(
+      BuildContext context, OtherServicesValue service) {
     switch (service) {
       case OtherServicesValue.tut:
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const PaymentsScreen(), // TutScreen sayfasına yönlendirme
+            builder: (context) =>
+                const PaymentsScreen(), // TutScreen sayfasına yönlendirme
           ),
         );
         break;
@@ -141,7 +155,8 @@ class HomeScreenContent extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const PaymentsScreen(), // JayJemagatScreen sayfasına yönlendirme
+            builder: (context) =>
+                const PaymentsScreen(), // JayJemagatScreen sayfasına yönlendirme
           ),
         );
         break;
@@ -149,7 +164,8 @@ class HomeScreenContent extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const PaymentsScreen(), // SuwScreen sayfasına yönlendirme
+            builder: (context) =>
+                const PaymentsScreen(), // SuwScreen sayfasına yönlendirme
           ),
         );
         break;
@@ -157,5 +173,4 @@ class HomeScreenContent extends StatelessWidget {
         print('Bu servis için yönlendirme tanımlanmadı.');
     }
   }
-
 }
