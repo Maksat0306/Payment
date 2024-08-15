@@ -13,9 +13,9 @@ class _CustomDropdownState extends State<CustomDropdown> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       decoration: BoxDecoration(
-        color: Color(0xFF2A2A2A), // Arka plan rengi
-        border: Border.all(color: Colors.white70), // Sınır rengi
-        borderRadius: BorderRadius.circular(8.0), // Köşe yuvarlama
+        color: Color(0xFF2D2D2E), // Arka plan rengi
+        // border: Border.all(color: Colors.white70), // Sınır rengi
+        borderRadius: BorderRadius.circular(8), // Köşe yuvarlama
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(

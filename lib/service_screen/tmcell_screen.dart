@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:flutter_svg/svg.dart";
 import "../../constants/colors.dart";
+import "../components/custom_alert_message.dart";
 import "../components/dropdown.dart";
 import 'package:contacts_service/contacts_service.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -89,10 +90,17 @@ class _TmcellScreenState extends State<TmcellScreen> {
               FieldText(
                 hintText: 'Mukdar',
                 keyboardType: TextInputType.number, // Sadece numara klavyesi açılır
-                onSuffixIconPressed: () {
-                  // Rehber açma kodu buraya gelecek
-                  print('Rehber açıldı');
-                },
+              ),
+              SizedBox(height: 24),
+              CustomAlertMessage(
+                message: 'Tölegi şu bank kartlary arkal...',
+                highlightedText: TextSpan(
+                  text: 'Altyn asyr kart (beýleki banklar), Rysgal bank, TDYDB (vnesh) bank, Senagat bank',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold, // Kalın metin
+                    color: Colors.white, // Beyaz renk
+                  ),
+                ),
               ),
             ],
           ),
