@@ -3,11 +3,14 @@ import "package:flutter/services.dart";
 import "package:flutter_svg/svg.dart";
 import "../../constants/colors.dart";
 import "../components/custom_alert_message.dart";
+import "../components/custom_payment_button.dart";
+import "../components/custom_text_button.dart";
 import "../components/dropdown.dart";
 import 'package:contacts_service/contacts_service.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import "../components/text_filed.dart";
+
 class TmcellScreen extends StatefulWidget {
   const TmcellScreen({super.key});
 
@@ -16,9 +19,16 @@ class TmcellScreen extends StatefulWidget {
 }
 
 class _TmcellScreenState extends State<TmcellScreen> {
+  final TextEditingController _amountController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final phoneController = TextEditingController();
   final amountController = TextEditingController();
+
+  @override
+  void dispose() {
+    _amountController.dispose(); // Kontrolcüyü temizleme
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,54 +65,73 @@ class _TmcellScreenState extends State<TmcellScreen> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Container(
-          color: AppColors.darkCard,
-          padding: const EdgeInsets.all(16), // İçerikten önce eklenen padding
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            // Column'un sadece içeriği kadar yer kaplamasını sağlar
-            children: [
-              Text(
-                'Töleg maglumatlary',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontFamily: 'ClashDisplay',
-                  fontWeight: FontWeight.w500,
-                  height: 0,
-                ),
-              ),
-              SizedBox(height: 24), // Metin ile Dropdown arasında boşluk
-              CustomDropdown(),
-              SizedBox(height: 24),
-              FieldText(
-                hintText: 'Telefon belgisi',
-                suffixIcon: SvgPicture.asset("assets/images/users.svg"),
-                keyboardType: TextInputType.phone, // Telefon klavyesini açar
-                onSuffixIconPressed: () {
-                  // Rehber açma kodu buraya gelecek
-                  print('Rehber açıldı');
-                },
-              ),
-              SizedBox(height: 24),
-              FieldText(
-                hintText: 'Mukdar',
-                keyboardType: TextInputType.number, // Sadece numara klavyesi açılır
-              ),
-              SizedBox(height: 24),
-              CustomAlertMessage(
-                message: 'Tölegi şu bank kartlary arkal...',
-                highlightedText: TextSpan(
-                  text: 'Altyn asyr kart (beýleki banklar), Rysgal bank, TDYDB (vnesh) bank, Senagat bank',
+      body: SingleChildScrollView( // Ekleme buraya
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Container(
+            color: AppColors.darkCard,
+            padding: const EdgeInsets.all(16), // İçerikten önce eklenen padding
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              // Column'un sadece içeriği kadar yer kaplamasını sağlar
+              children: [
+                Text(
+                  'Töleg maglumatlary',
                   style: TextStyle(
-                    fontWeight: FontWeight.bold, // Kalın metin
-                    color: Colors.white, // Beyaz renk
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontFamily: 'ClashDisplay',
+                    fontWeight: FontWeight.w500,
+                    height: 0,
                   ),
                 ),
-              ),
-            ],
+                SizedBox(height: 24), // Metin ile Dropdown arasında boşluk
+                CustomDropdown(),
+                SizedBox(height: 24),
+                FieldText(
+                  hintText: 'Telefon belgisi',
+                  suffixIcon: SvgPicture.asset("assets/images/users.svg"),
+                  keyboardType: TextInputType.phone, // Telefon klavyesini açar
+                  onSuffixIconPressed: () {
+                    // Rehber açma kodu buraya gelecek
+                    print('Rehber açıldı');
+                  },
+                ),
+                SizedBox(height: 24),
+                FieldText(
+                  controller: _amountController,
+                  hintText: 'Mukdar',
+                  keyboardType: TextInputType.number, // Sadece numara klavyesi açılır
+                ),
+                SizedBox(height: 24),
+                CustomAlertMessage(
+                  message: 'Tölegi şu bank kartlary arkal...',
+                  highlightedText: TextSpan(
+                    text: 'Altyn asyr kart (beýleki banklar), Rysgal bank, TDYDB (vnesh) bank, Senagat bank',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold, // Kalın metin
+                      color: Colors.white, // Beyaz renk
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16),
+                CustomTextButton(
+                  text: 'Kömek gerekmi?', // Butonun metni
+                  onPressed: () {
+                    // Butona tıklanınca çalışacak işlev
+                    print('Kömek gerekmi? butonuna tıklandı!');
+                  },
+                ),
+                SizedBox(height: 16),
+                CustomPaymentButton(
+                  amountController: _amountController,
+                  onPressed: () {
+                    // Butona tıklanınca çalışacak işlev
+                    print('Ödeme işlemi başlatıldı: ${_amountController.text} TMT');
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
