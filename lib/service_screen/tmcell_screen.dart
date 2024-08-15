@@ -1,11 +1,12 @@
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:flutter_svg/svg.dart";
-import "package:url_launcher/url_launcher.dart";
 import "../../constants/colors.dart";
 import "../components/dropdown.dart";
 import 'package:contacts_service/contacts_service.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+import "../components/text_filed.dart";
 class TmcellScreen extends StatefulWidget {
   const TmcellScreen({super.key});
 
@@ -75,28 +76,23 @@ class _TmcellScreenState extends State<TmcellScreen> {
               SizedBox(height: 24), // Metin ile Dropdown arasında boşluk
               CustomDropdown(),
               SizedBox(height: 24),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Telefon belgisi',
-                  labelStyle: TextStyle(
-                    color: Colors.blue, // Label rengi
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blue),
-                    // Kenarlık rengi
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blue, width: 2.0),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  suffixIcon: IconButton(
-                    icon: Icon(Icons.person_outline, color: Colors.grey),
-                    onPressed: () {
-                      _launchContacts();
-                    },
-                  ),
-                ),
+              FieldText(
+                hintText: 'Telefon belgisi',
+                suffixIcon: SvgPicture.asset("assets/images/users.svg"),
+                keyboardType: TextInputType.phone, // Telefon klavyesini açar
+                onSuffixIconPressed: () {
+                  // Rehber açma kodu buraya gelecek
+                  print('Rehber açıldı');
+                },
+              ),
+              SizedBox(height: 24),
+              FieldText(
+                hintText: 'Mukdar',
+                keyboardType: TextInputType.number, // Sadece numara klavyesi açılır
+                onSuffixIconPressed: () {
+                  // Rehber açma kodu buraya gelecek
+                  print('Rehber açıldı');
+                },
               ),
             ],
           ),

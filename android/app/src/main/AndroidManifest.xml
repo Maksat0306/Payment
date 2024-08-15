@@ -1,4 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Diğer izinler -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Rehbere erişim izni -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:label="toleg"
         android:name="${applicationName}"

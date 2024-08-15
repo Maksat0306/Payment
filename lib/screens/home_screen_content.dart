@@ -7,6 +7,7 @@ import '../components/grid_elements.dart';
 import '../constants/colors.dart';
 import '../enums/other_services_value.dart';
 import '../enums/services_value.dart';
+import '../service_screen/contact_picker_screen.dart';
 import '../service_screen/tmcell_screen.dart';
 
 class HomeScreenContent extends StatelessWidget {
@@ -140,7 +141,7 @@ class HomeScreenContent extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) =>
-            const PaymentsScreen(), // JayJemagatScreen sayfasına yönlendirme
+            ContactPickerScreen(), // JayJemagatScreen sayfasına yönlendirme
           ),
         );
         break;

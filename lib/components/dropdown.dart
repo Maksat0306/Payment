@@ -19,6 +19,7 @@ class _CustomDropdownState extends State<CustomDropdown> {
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
+          isExpanded: true, // DropdownButton'ın genişliğini genişletir
           value: _selectedValue,
           hint: Text(
             'Karty saýla',
