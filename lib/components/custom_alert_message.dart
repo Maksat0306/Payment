@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomAlertMessage extends StatelessWidget {
   final String message;
@@ -7,11 +6,11 @@ class CustomAlertMessage extends StatelessWidget {
   final Widget icon; // IconData yerine Widget türü
 
   const CustomAlertMessage({
-    Key? key,
+    super.key,
     required this.message,
     this.highlightedText,
     this.icon = const Icon(Icons.info, color: Colors.white70, size: 20), // Varsayılan olarak bilgi simgesi
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +18,11 @@ class CustomAlertMessage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         icon, // Burada artık doğrudan bir Widget kullanabiliriz
-        SizedBox(width: 8), // İkon ile metin arasındaki boşluk
+        const SizedBox(width: 8), // İkon ile metin arasındaki boşluk
         Expanded(
           child: RichText(
             text: TextSpan(
-              style: TextStyle(
+              style: const TextStyle(
                 fontFamily: 'ClashDisplay',
                 fontWeight: FontWeight.w500,
                 color: Colors.white70, // Ana metin rengi

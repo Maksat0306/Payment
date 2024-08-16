@@ -29,25 +29,25 @@ class NumberField extends StatelessWidget {
         ],
         decoration: InputDecoration(
           isDense: true, // Metin alanının daha az yer kaplamasını sağlar.
-          contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),  // İçerik dolgusu, yazı ve kenarlar arasındaki boşluk.
+          contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),  // İçerik dolgusu, yazı ve kenarlar arasındaki boşluk.
           hintText: hintText, // Kullanıcı herhangi bir şey yazmadığında görünen hint metni.
-          hintStyle: TextStyle(color: Colors.grey), // Hint metninin stili (rengi, boyutu vb.).
+          hintStyle: const TextStyle(color: Colors.grey), // Hint metninin stili (rengi, boyutu vb.).
           filled: true, // Arka plan renginin doldurulmasını sağlar.
-          fillColor: Color(0xFF2D2D2E), // Arka plan rengi.
+          fillColor: const Color(0xFF2D2D2E), // Arka plan rengi.
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8), // Kenarların yuvarlatılma miktarı.
             borderSide: BorderSide.none, // Kenar çizgisi yok, dolayısıyla kenar çizgisi görünmeyecek.
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8), // Etkin durumdaki kenarların yuvarlatılması.
-            borderSide: BorderSide(color: Color(0xFF363738)), // Kenar çizgisinin rengi (etkin durumda).
+            borderSide: const BorderSide(color: Color(0xFF363738)), // Kenar çizgisinin rengi (etkin durumda).
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10), // Metin alanı odaklandığında kenarların yuvarlatılması.
-            borderSide: BorderSide(color: Color(0xFF4D4F51), width: 0.8), // Odaklanıldığında kenar çizgisinin rengi ve kalınlığı.
+            borderSide: const BorderSide(color: Color(0xFF4D4F51), width: 0.8), // Odaklanıldığında kenar çizgisinin rengi ve kalınlığı.
           ),
         ),
-        style: TextStyle(color: Colors.white), // Yazı stili, burada yazı rengi beyaz olarak ayarlanmış.
+        style: const TextStyle(color: Colors.white), // Yazı stili, burada yazı rengi beyaz olarak ayarlanmış.
         validator: validator, // Form validasyonu için kullanılan işlev.
       ),
     );

@@ -50,10 +50,10 @@ class _ContactPickerScreenState extends State<ContactPickerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Kişi Seç'),
+        title: const Text('Kişi Seç'),
       ),
       body: _contacts == null
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : ListView.builder(
         itemCount: _contacts!.length,
         itemBuilder: (context, index) {

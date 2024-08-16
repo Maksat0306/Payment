@@ -7,8 +7,6 @@ import "../components/custom_alert_message.dart";
 import "../components/custom_payment_button.dart";
 import "../components/custom_text_button.dart";
 import "../components/dropdown.dart";
-import 'package:contacts_service/contacts_service.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 import "../components/text_filed.dart";
 
@@ -79,7 +77,7 @@ class _TmcellScreenState extends State<TmcellScreen> {
               mainAxisSize: MainAxisSize.min,
               // Column'un sadece içeriği kadar yer kaplamasını sağlar
               children: [
-                Row(
+                const Row(
                   children: [
                     Text(
                       'Töleg maglumatlary',
@@ -94,13 +92,13 @@ class _TmcellScreenState extends State<TmcellScreen> {
                   ],
                 ),
 
-                SizedBox(height: 24), // Metin ile Dropdown arasında boşluk
+                const SizedBox(height: 24), // Metin ile Dropdown arasında boşluk
 
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     /// TEXT Telefon belgisi
-                    Text(
+                    const Text(
                       'Telefon belgisi',
                       style: TextStyle(
                         color: Colors.white,
@@ -110,7 +108,7 @@ class _TmcellScreenState extends State<TmcellScreen> {
                         height: 0,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     FieldText(
                       hintText: 'Telefon belgisi',
                       suffixIcon: SvgPicture.asset("assets/images/users.svg"),
@@ -125,13 +123,13 @@ class _TmcellScreenState extends State<TmcellScreen> {
                   ],
                 ),
 
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
 
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     /// TEXT Mukdar
-                    Text(
+                    const Text(
                       'Mukdar',
                       style: TextStyle(
                         color: Colors.white,
@@ -141,7 +139,7 @@ class _TmcellScreenState extends State<TmcellScreen> {
                         height: 0,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     NumberField(
                       controller: _amountController,
                       hintText: 'Mukdar',
@@ -149,13 +147,13 @@ class _TmcellScreenState extends State<TmcellScreen> {
                   ],
                 ),
 
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
 
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     /// TEXT Kart saýla
-                    Text(
+                    const Text(
                       'Kart saýla',
                       style: TextStyle(
                         color: Colors.white,
@@ -165,12 +163,12 @@ class _TmcellScreenState extends State<TmcellScreen> {
                         height: 0,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     CustomDropdown(),
                   ],
                 ),
 
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
 
                 CustomAlertMessage(
                   icon: Padding(
@@ -178,7 +176,7 @@ class _TmcellScreenState extends State<TmcellScreen> {
                     child: SvgPicture.asset("assets/images/info.svg"),
                   ),
                   message: 'Tölegi şu bank kartlary arkal...',
-                  highlightedText: TextSpan(
+                  highlightedText: const TextSpan(
                     text: 'Altyn asyr kart (beýleki banklar), Rysgal bank, TDYDB (vnesh) bank, Senagat bank',
                     style: TextStyle(
                       fontWeight: FontWeight.w600, // Kalın metin
@@ -187,7 +185,7 @@ class _TmcellScreenState extends State<TmcellScreen> {
                   ),
                 ),
 
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
 
                 CustomTextButton(
                   text: 'Kömek gerekmi?', // Butonun metni
@@ -196,7 +194,7 @@ class _TmcellScreenState extends State<TmcellScreen> {
                     print('Kömek gerekmi? butonuna tıklandı!');
                   },
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 CustomPaymentButton(
                   amountController: _amountController,
                   onPressed: () {
@@ -204,7 +202,7 @@ class _TmcellScreenState extends State<TmcellScreen> {
                     print('Ödeme işlemi başlatıldı: ${_amountController.text} TMT');
                   },
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
               ],
             ),
           ),

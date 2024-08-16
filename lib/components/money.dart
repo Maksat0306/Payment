@@ -74,7 +74,7 @@ class Money extends StatelessWidget {
                         // Butona tıklanınca ne olacağını buraya yazabilirsiniz
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF303031),
+                        backgroundColor: const Color(0xFF303031),
                         // Butonun arka plan rengi
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(

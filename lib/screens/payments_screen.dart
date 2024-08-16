@@ -10,7 +10,7 @@ class PaymentsScreen extends StatelessWidget {
         title: const Text('Payments'),
         backgroundColor: Colors.red, // Farklı renklerle farklı AppBar'lar tanımlayabilirsiniz
       ),
-      body: Center(
+      body: const Center(
         child: Text('This is the Payments Screen'),
       ),
     );

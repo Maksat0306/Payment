@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:toleg/constants/colors.dart';
 
 class OtherGridElements extends StatelessWidget {
@@ -8,11 +7,11 @@ class OtherGridElements extends StatelessWidget {
   final VoidCallback onTap;
 
   const OtherGridElements({
-    Key? key,
+    super.key,
     required this.icon,
     required this.title,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

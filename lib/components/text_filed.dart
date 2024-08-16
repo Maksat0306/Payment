@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
 
 class FieldText extends StatelessWidget {
   final String? hintText;
@@ -36,22 +35,22 @@ class FieldText extends StatelessWidget {
         inputFormatters: inputFormatters,
         decoration: InputDecoration(
           isDense: true,
-          contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+          contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
           hintText: hintText,
-          hintStyle: TextStyle(color: Colors.grey),
+          hintStyle: const TextStyle(color: Colors.grey),
           filled: true,
-          fillColor: Color(0xFF2D2D2E),
+          fillColor: const Color(0xFF2D2D2E),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide: BorderSide.none,
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: Color(0xFF363738)),
+            borderSide: const BorderSide(color: Color(0xFF363738)),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(color: Color(0xFF4D4F51), width: 0.8),
+            borderSide: const BorderSide(color: Color(0xFF4D4F51), width: 0.8),
           ),
           suffixIcon: suffixIcon != null
               ? IconButton(
@@ -60,7 +59,7 @@ class FieldText extends StatelessWidget {
           )
               : null,
         ),
-        style: TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.white),
       ),
     );
   }

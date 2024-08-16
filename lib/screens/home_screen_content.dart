@@ -43,16 +43,16 @@ class HomeScreenContent extends StatelessWidget {
       ),
       body: CustomScrollView(
         slivers: [
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: Column(
-              children: const [
+              children: [
                 Money(),
               ],
             ),
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.all(16),
               child: Text(
                 'Hyzmatlar',
                 style: TextStyle(
@@ -89,7 +89,7 @@ class HomeScreenContent extends StatelessWidget {
               ),
             ),
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             // SliverToBoxAdapter kullanımı
               child: SizedBox(height: 30)),
           SliverPadding(
@@ -116,7 +116,7 @@ class HomeScreenContent extends StatelessWidget {
               ),
             ),
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             // SliverToBoxAdapter kullanımı
               child: SizedBox(height: 16)),
         ],
