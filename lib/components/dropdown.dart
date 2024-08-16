@@ -11,10 +11,11 @@ class _CustomDropdownState extends State<CustomDropdown> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 50, // Yüksekliği 50 piksel olarak ayarlıyoruz
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       decoration: BoxDecoration(
         color: Color(0xFF2D2D2E), // Arka plan rengi
-        // border: Border.all(color: Colors.white70), // Sınır rengi
+        border: Border.all(color: Color(0xFF363738)), // Sınır rengi
         borderRadius: BorderRadius.circular(8), // Köşe yuvarlama
       ),
       child: DropdownButtonHideUnderline(
@@ -23,7 +24,7 @@ class _CustomDropdownState extends State<CustomDropdown> {
           value: _selectedValue,
           hint: Text(
             'Karty saýla',
-            style: TextStyle(color: Colors.white70),
+            style: TextStyle(color: Colors.grey),
           ),
           icon: Icon(Icons.arrow_drop_down, color: Colors.white70), // Ok ikonu
           dropdownColor: Color(0xFF2A2A2A), // DropDown menüsünün arka plan rengi
