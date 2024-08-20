@@ -40,6 +40,7 @@ class CustomPaymentButton extends StatelessWidget {
                 return Text(
                   amountController.text.isEmpty ? '0 TMT' : '${amountController.text} TMT', // Dinlenen metin
                   style: TextStyle(
+                    fontFamily: 'ClashDisplay',
                     color: Colors.black, // Dinlenen metnin rengi
                     fontSize: 16,
                     fontWeight: FontWeight.bold,

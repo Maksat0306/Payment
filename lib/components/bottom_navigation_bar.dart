@@ -2,11 +2,45 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../constants/colors.dart'; // Eğer renkler burada tanımlıysa
 
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _currentIndex = 0;
+
+  final List<Widget> _pages = [
+    Center(child: Text('Esasy')),    // Bu sayfaları istediğiniz gibi özelleştirin
+    Center(child: Text('Tölegler')),
+    Center(child: Text('Kartlar')),
+    Center(child: Text('Sazlamak')),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: IndexedStack(
+        index: _currentIndex,
+        children: _pages,
+      ),
+      bottomNavigationBar: CustomBottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+      ),
+    );
+  }
+}
+
 class CustomBottomNavigationBar extends StatelessWidget {
   final int currentIndex;
   final Function(int) onTap;
 
-  const CustomBottomNavigationBar({super.key,
+  const CustomBottomNavigationBar({
     required this.currentIndex,
     required this.onTap,
   });
@@ -19,15 +53,15 @@ class CustomBottomNavigationBar extends StatelessWidget {
         currentIndex: currentIndex,
         onTap: onTap,
         elevation: 0,
-        selectedItemColor: Colors.white, // Seçili öğe rengi
-        unselectedItemColor: Colors.grey, // Seçili olmayan öğe rengi
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.grey,
         selectedLabelStyle: const TextStyle(
           color: Colors.white,
           fontSize: 12,
           fontFamily: 'ClashDisplay',
           fontWeight: FontWeight.w500,
           height: 0,
-        ), // Seçili öğe metin rengi
+        ),
         unselectedLabelStyle: const TextStyle(
           color: Colors.grey,
           fontSize: 12,

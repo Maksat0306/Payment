@@ -21,6 +21,7 @@ class CustomTextButton extends StatelessWidget {
       child: Text(
         text,
         style: TextStyle(
+          fontFamily: 'ClashDisplay',
           color: Colors.blue, // Metin rengi
           fontSize: 16, // Yazı boyutu
           fontWeight: FontWeight.w600, // Yazı kalınlığı
