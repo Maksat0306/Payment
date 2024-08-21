@@ -17,16 +17,16 @@ class CustomPaymentButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0xFF4C8EFF), // Butonun arka plan rengi
+          backgroundColor: const Color(0xFF4C8EFF), // Butonun arka plan rengi
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(24), // Köşeleri yuvarlak ama tam değil
           ),
-          padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0), // İç dolgu
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0), // İç dolgu
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center, // Metni ortalamak için
           children: [
-            Text(
+            const Text(
               'Jemi töleg: ', // Sabit metin kısmı
               style: TextStyle(
                 color: Colors.black, // Metin rengi
@@ -39,7 +39,7 @@ class CustomPaymentButton extends StatelessWidget {
               builder: (context, child) {
                 return Text(
                   amountController.text.isEmpty ? '0 TMT' : '${amountController.text} TMT', // Dinlenen metin
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: 'ClashDisplay',
                     color: Colors.black, // Dinlenen metnin rengi
                     fontSize: 16,

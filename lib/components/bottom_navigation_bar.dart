@@ -11,10 +11,10 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
-    Center(child: Text('Esasy')),    // Bu sayfaları istediğiniz gibi özelleştirin
-    Center(child: Text('Tölegler')),
-    Center(child: Text('Kartlar')),
-    Center(child: Text('Sazlamak')),
+    const Center(child: Text('Esasy')),    // Bu sayfaları istediğiniz gibi özelleştirin
+    const Center(child: Text('Tölegler')),
+    const Center(child: Text('Kartlar')),
+    const Center(child: Text('Sazlamak')),
   ];
 
   @override

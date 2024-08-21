@@ -49,7 +49,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
             padding: const EdgeInsets.all(16), // İçerikten önce eklenen padding
             child: Column(
               children: [
-                Column(
+                const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 10),
@@ -92,7 +92,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                     ),
                     SizedBox(height: 32),
                     /// TEXT SMS kody
-                    const Text(
+                    Text(
                       'Sms kody',
                       style: TextStyle(
                         color: Colors.white,
@@ -102,16 +102,16 @@ class _VerificationScreenState extends State<VerificationScreen> {
                         height: 0,
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8),
                     VerificationCodeField(),
                   ],
                 ),
                 const SizedBox(height: 16),
-                CustomAlertMessage(
+                const CustomAlertMessage(
                   textAlign: TextAlign.center,
                   message:
                       'Maglumatlaryň dogrulygyna göz ýetirip sms arkaly 99365**5873 belgisine gelen tassyklaýyş koduny aşaky boşluga dolduryp tölegi tassyklaň.',
-                  highlightedText: const TextSpan(
+                  highlightedText: TextSpan(
                     text: '',
                     style: TextStyle(
                       fontWeight: FontWeight.w600, // Kalın metin

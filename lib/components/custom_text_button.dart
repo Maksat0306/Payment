@@ -16,11 +16,11 @@ class CustomTextButton extends StatelessWidget {
       onPressed: onPressed,
       style: TextButton.styleFrom(
         // backgroundColor: Color(0xFF2A2A2A), // Arka plan rengi
-        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0), // İç dolgu
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0), // İç dolgu
       ),
       child: Text(
         text,
-        style: TextStyle(
+        style: const TextStyle(
           fontFamily: 'ClashDisplay',
           color: Colors.blue, // Metin rengi
           fontSize: 16, // Yazı boyutu
