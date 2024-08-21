@@ -9,7 +9,7 @@ class CustomAlertMessage extends StatelessWidget {
     super.key,
     required this.message,
     this.highlightedText,
-    this.icon = const Icon(Icons.info, color: Colors.white70, size: 20), // Varsayılan olarak bilgi simgesi
+    this.icon = const SizedBox.shrink(), // Varsayılan olarak boş bir widget
   });
 
   @override
