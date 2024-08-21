@@ -22,6 +22,7 @@ class _TmcellScreenState extends State<TmcellScreen> {
   final phoneController = TextEditingController();
   final amountController = TextEditingController();
   String? _selectedCard;
+  bool _isDropdownValid = true; // Başlangıçta hata mesajı gösterilmez
 
   @override
   void dispose() {
@@ -184,10 +185,11 @@ class _TmcellScreenState extends State<TmcellScreen> {
                         onChanged: (newValue) {
                           setState(() {
                             _selectedCard = newValue;
+                            _isDropdownValid = true; // Seçim yapıldığında hata mesajını gizle
                           });
                         },
                       ),
-                      if (_selectedCard == null)
+                      if (!_isDropdownValid) // İlk başta hata mesajı gösterilmez
                         const Padding(
                           padding: EdgeInsets.only(top: 5),
                           child: Text(
@@ -228,9 +230,12 @@ class _TmcellScreenState extends State<TmcellScreen> {
                   CustomPaymentButton(
                     amountController: _amountController,
                     onPressed: () {
+                      setState(() {
+                        _isDropdownValid = _selectedCard != null; // Seçim yapıldı mı kontrol et
+                      });
+
                       if (formKey.currentState?.validate() == true &&
                           _selectedCard != null) {
-                        // Butona tıklanınca çalışacak işlev
                         print(
                             'Ödeme işlemi başlatıldı: ${_amountController.text} TMT');
                       } else {
