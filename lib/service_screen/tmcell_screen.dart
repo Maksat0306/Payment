@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:flutter_svg/svg.dart";
 import "package:toleg/components/number_field.dart";
+import "package:toleg/service_screen/verification_screen.dart";
 import "../../constants/colors.dart";
 import "../components/custom_alert_message.dart";
 import "../components/custom_payment_button.dart";
@@ -234,10 +235,14 @@ class _TmcellScreenState extends State<TmcellScreen> {
                         _isDropdownValid = _selectedCard != null; // Seçim yapıldı mı kontrol et
                       });
 
-                      if (formKey.currentState?.validate() == true &&
-                          _selectedCard != null) {
-                        print(
-                            'Ödeme işlemi başlatıldı: ${_amountController.text} TMT');
+                      if (formKey.currentState?.validate() == true && _selectedCard != null) {
+                        print('Ödeme işlemi başlatıldı: ${_amountController.text} TMT');
+
+                        // Koşullar sağlandığında VerificationScreen'e git
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const VerificationScreen()),
+                        );
                       } else {
                         // Form geçerli değilse hata mesajı göstermek için setState çağrısı yapılır
                         setState(() {});
