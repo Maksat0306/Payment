@@ -72,7 +72,7 @@ class HomeScreenContent extends StatelessWidget {
                 crossAxisCount: 2,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
-                childAspectRatio: 3 / 2,
+                childAspectRatio: 4 / 3,
               ),
               delegate: SliverChildBuilderDelegate(
                     (context, index) {
@@ -99,7 +99,7 @@ class HomeScreenContent extends StatelessWidget {
                 crossAxisCount: 3,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
-                childAspectRatio: 4 / 4.5,
+                childAspectRatio: 4 / 5,
               ),
               delegate: SliverChildBuilderDelegate(
                     (context, index) {
