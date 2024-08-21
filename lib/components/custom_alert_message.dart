@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 
 class CustomAlertMessage extends StatelessWidget {
   final String message;
-  final TextSpan? highlightedText; // Vurgulanmış metin için ek özellik
-  final Widget icon; // IconData yerine Widget türü
+  final TextSpan? highlightedText;
+  final Widget? icon; // Icon artık null olabilir
+  final TextAlign textAlign; // Metnin hizalanmasını kontrol eder
 
   const CustomAlertMessage({
     super.key,
     required this.message,
     this.highlightedText,
-    this.icon = const SizedBox.shrink(), // Varsayılan olarak boş bir widget
+    this.icon,
+    this.textAlign = TextAlign.start, // Varsayılan olarak sola hizalı
   });
 
   @override
@@ -17,22 +19,23 @@ class CustomAlertMessage extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        icon, // Burada artık doğrudan bir Widget kullanabiliriz
-        const SizedBox(width: 8), // İkon ile metin arasındaki boşluk
+        if (icon != null) icon!, // Icon null değilse göster
+        if (icon != null) const SizedBox(width: 8), // Eğer icon varsa, boşluk ekle
         Expanded(
-          child: RichText(
-            text: TextSpan(
+          child: Text.rich(
+            TextSpan(
               style: const TextStyle(
                 fontFamily: 'ClashDisplay',
                 fontWeight: FontWeight.w500,
-                color: Colors.white70, // Ana metin rengi
-                height: 1.6, // Satır yüksekliği (line height)
+                color: Colors.white70,
+                height: 1.6,
               ),
               children: [
                 TextSpan(text: message),
                 if (highlightedText != null) highlightedText!,
               ],
             ),
+            textAlign: textAlign, // Metnin hizalanması burada ayarlanır
           ),
         ),
       ],
