@@ -3,36 +3,59 @@ import "package:flutter/services.dart";
 import "package:flutter_svg/svg.dart";
 import "package:toleg/components/number_field.dart";
 import "package:toleg/service_screen/verification_screen.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "../../constants/colors.dart";
 import "../components/custom_alert_message.dart";
 import "../components/custom_payment_button.dart";
 import "../components/custom_text_button.dart";
 import "../components/dropdown.dart";
 import "../components/text_filed.dart";
+import '../providers.dart'; // Sağlayıcılar için dosya
 
-class TmcellScreen extends StatefulWidget {
+class TmcellScreen extends ConsumerStatefulWidget {
   const TmcellScreen({super.key});
 
   @override
-  State<TmcellScreen> createState() => _TmcellScreenState();
+  _TmcellScreenState createState() => _TmcellScreenState();
 }
 
-class _TmcellScreenState extends State<TmcellScreen> {
-  final TextEditingController _amountController = TextEditingController();
+class _TmcellScreenState extends ConsumerState<TmcellScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final phoneController = TextEditingController();
-  final amountController = TextEditingController();
-  String? _selectedCard;
   bool _isDropdownValid = true; // Başlangıçta hata mesajı gösterilmez
+
+  late TextEditingController phoneController;
+  late TextEditingController amountController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    final phone = ref.read(phoneProvider);
+    final amount = ref.read(amountProvider);
+
+    phoneController = TextEditingController(text: phone);
+    amountController = TextEditingController(text: amount);
+
+    phoneController.addListener(() {
+      ref.read(phoneProvider.notifier).state = phoneController.text;
+    });
+
+    amountController.addListener(() {
+      ref.read(amountProvider.notifier).state = amountController.text;
+    });
+  }
 
   @override
   void dispose() {
-    _amountController.dispose(); // Kontrolcüyü temizleme
+    phoneController.dispose();
+    amountController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final selectedCard = ref.watch(selectedCardProvider.state);
+
     return Scaffold(
       backgroundColor: AppColors.darkBackgraund,
       appBar: AppBar(
@@ -50,10 +73,7 @@ class _TmcellScreenState extends State<TmcellScreen> {
         ),
         leading: IconButton(
           icon: SvgPicture.asset("assets/images/arrow-left.svg"),
-          // Geri butonu simgesi ve rengi
-          onPressed: () =>
-              Navigator.of(context)
-                  .pop(), // Geri tuşuna basıldığında önceki sayfaya döner
+          onPressed: () => Navigator.of(context).pop(),
         ),
         actions: [
           Padding(
@@ -66,20 +86,19 @@ class _TmcellScreenState extends State<TmcellScreen> {
           ),
         ],
       ),
-      body: SingleChildScrollView( // Ekleme buraya
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Container(
             decoration: BoxDecoration(
               color: AppColors.darkCard,
-              borderRadius: BorderRadius.circular(12), // Kenarları yuvarlama
+              borderRadius: BorderRadius.circular(12),
             ),
-            padding: const EdgeInsets.all(16), // İçerikten önce eklenen padding
+            padding: const EdgeInsets.all(16),
             child: Form(
               key: formKey,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                // Column'un sadece içeriği kadar yer kaplamasını sağlar
                 children: [
                   const Row(
                     children: [
@@ -95,13 +114,10 @@ class _TmcellScreenState extends State<TmcellScreen> {
                       ),
                     ],
                   ),
-
-                  const SizedBox(height: 24), // Metin ile Dropdown arasında boşluk
-
+                  const SizedBox(height: 24),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      /// TEXT Telefon belgisi
                       const Text(
                         'Telefon belgisi',
                         style: TextStyle(
@@ -123,7 +139,7 @@ class _TmcellScreenState extends State<TmcellScreen> {
                           return null;
                         },
                         suffixIcon: SvgPicture.asset("assets/images/users.svg"),
-                        keyboardType: TextInputType.phone, // Telefon klavyesini açar
+                        keyboardType: TextInputType.phone,
                         onSuffixIconPressed: () async {
                           final String? phoneNumber = await _pickContact();
                           if (phoneNumber != null) {
@@ -133,13 +149,9 @@ class _TmcellScreenState extends State<TmcellScreen> {
                       ),
                     ],
                   ),
-
-                  // const SizedBox(height: 24),
-
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      /// TEXT Mukdar
                       const Text(
                         'Mukdar',
                         style: TextStyle(
@@ -152,7 +164,7 @@ class _TmcellScreenState extends State<TmcellScreen> {
                       ),
                       const SizedBox(height: 8),
                       NumberField(
-                        controller: _amountController,
+                        controller: amountController,
                         hintText: 'Mukdar',
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -163,13 +175,9 @@ class _TmcellScreenState extends State<TmcellScreen> {
                       ),
                     ],
                   ),
-
-                  // const SizedBox(height: 6),
-
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      /// TEXT Kart saýla
                       const Text(
                         'Kart saýla',
                         style: TextStyle(
@@ -182,15 +190,15 @@ class _TmcellScreenState extends State<TmcellScreen> {
                       ),
                       const SizedBox(height: 8),
                       CustomDropdown(
-                        selectedValue: _selectedCard,
+                        selectedValue: selectedCard.state,
                         onChanged: (newValue) {
                           setState(() {
-                            _selectedCard = newValue;
-                            _isDropdownValid = true; // Seçim yapıldığında hata mesajını gizle
+                            selectedCard.state = newValue;
+                            _isDropdownValid = true;
                           });
                         },
                       ),
-                      if (!_isDropdownValid) // İlk başta hata mesajı gösterilmez
+                      if (!_isDropdownValid)
                         const Padding(
                           padding: EdgeInsets.only(top: 5),
                           child: Text(
@@ -200,9 +208,7 @@ class _TmcellScreenState extends State<TmcellScreen> {
                         ),
                     ],
                   ),
-
                   const SizedBox(height: 16),
-
                   CustomAlertMessage(
                     icon: Padding(
                       padding: const EdgeInsets.only(top: 5),
@@ -212,39 +218,34 @@ class _TmcellScreenState extends State<TmcellScreen> {
                     highlightedText: const TextSpan(
                       text: 'Altyn asyr kart (beýleki banklar), Rysgal bank, TDYDB (vnesh)(bank, Senagat bank',
                       style: TextStyle(
-                        fontWeight: FontWeight.w600, // Kalın metin
-                        color: Colors.white, // Beyaz renk
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 16),
-
                   CustomTextButton(
-                    text: 'Kömek gerekmi?', // Butonun metni
+                    text: 'Kömek gerekmi?',
                     onPressed: () {
-                      // Butona tıklanınca çalışacak işlev
                       print('Kömek gerekmi? butonuna tıklandı!');
                     },
                   ),
                   const SizedBox(height: 16),
                   CustomPaymentButton(
-                    amountController: _amountController,
+                    amountController: amountController,
                     onPressed: () {
                       setState(() {
-                        _isDropdownValid = _selectedCard != null; // Seçim yapıldı mı kontrol et
+                        _isDropdownValid = selectedCard.state != null;
                       });
 
-                      if (formKey.currentState?.validate() == true && _selectedCard != null) {
-                        print('Ödeme işlemi başlatıldı: ${_amountController.text} TMT');
+                      if (formKey.currentState?.validate() == true && _isDropdownValid) {
+                        print('Ödeme işlemi başlatıldı: ${amountController.text} TMT');
 
-                        // Koşullar sağlandığında VerificationScreen'e git
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => const VerificationScreen()),
                         );
                       } else {
-                        // Form geçerli değilse hata mesajı göstermek için setState çağrısı yapılır
                         setState(() {});
                       }
                     },
