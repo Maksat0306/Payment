@@ -10,13 +10,12 @@ class AppTextStyles {
     height: 0,
   );
 
-  // Alt başlıklar için stil
-  static const TextStyle subtitleStyle = TextStyle(
-    color: Colors.white70,
-    fontSize: 16,
-    fontFamily: 'ClashDisplay',
-    fontWeight: FontWeight.w400,
-    height: 1.2,
+  // Appbar title stil
+  static const TextStyle appBarStyle = TextStyle(
+    color: Colors.white,
+    fontSize: 28,
+    fontFamily: "ClashDisplay",
+    fontWeight: FontWeight.w500,
   );
 
   // Açıklama metinleri için stil
