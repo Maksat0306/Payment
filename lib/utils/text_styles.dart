@@ -19,12 +19,12 @@ class AppTextStyles {
   );
 
   // Açıklama metinleri için stil
-  static const TextStyle bodyStyle = TextStyle(
-    color: Colors.grey,
-    fontSize: 14,
+  static const TextStyle inputUnderText = TextStyle(
+    color: Colors.white,
+    fontSize: 13,
     fontFamily: 'ClashDisplay',
-    fontWeight: FontWeight.normal,
-    height: 1.5,
+    fontWeight: FontWeight.w500,
+    height: 0,
   );
 
   // Vurgulu metinler için stil

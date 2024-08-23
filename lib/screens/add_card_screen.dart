@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:toleg/components/custom_continue_button.dart';
+import '../components/custom_dropdown.dart';
+import '../components/string_filed.dart';
+import '../constants/colors.dart';
 import '../models.dart';
+import '../utils/text_styles.dart';
 
 class AddCardScreen extends StatefulWidget {
   const AddCardScreen({super.key});
@@ -9,7 +15,8 @@ class AddCardScreen extends StatefulWidget {
 }
 
 class _AddCardScreenState extends State<AddCardScreen> {
-  final TextEditingController _cardHolderNameController = TextEditingController();
+  final TextEditingController _cardHolderNameController =
+      TextEditingController();
   final TextEditingController _cardNumberController = TextEditingController();
   final TextEditingController _expiryDateController = TextEditingController();
   String? _selectedBank;
@@ -37,70 +44,117 @@ class _AddCardScreenState extends State<AddCardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      /// APPBAR
       appBar: AppBar(
-        title: const Text("Yeni Kart Ekle"),
+        title: const Text("Täze kart goş"),
+        leading: IconButton(
+          icon: SvgPicture.asset("assets/images/arrow-left.svg"),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: SvgPicture.asset(
+              "assets/images/komek_gerek.svg",
+              height: 26,
+              width: 26,
+            ),
+          ),
+        ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text("Kart Sahibinin Adı", style: TextStyle(fontSize: 16)),
-            const SizedBox(height: 8),
-            TextField(
-              controller: _cardHolderNameController,
-              decoration: InputDecoration(
-                hintText: "Adınızı girin",
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-              ),
+
+      /// BODY
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Container(
+            decoration: BoxDecoration(
+              color: AppColors.darkCard,
+              borderRadius: BorderRadius.circular(12),
             ),
-            const SizedBox(height: 16),
-            const Text("Kart Numarası", style: TextStyle(fontSize: 16)),
-            const SizedBox(height: 8),
-            TextField(
-              controller: _cardNumberController,
-              decoration: InputDecoration(
-                hintText: "Kart numaranızı girin",
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-              ),
-            ),
-            const SizedBox(height: 16),
-            const Text("Son Kullanma Tarihi", style: TextStyle(fontSize: 16)),
-            const SizedBox(height: 8),
-            TextField(
-              controller: _expiryDateController,
-              decoration: InputDecoration(
-                hintText: "MM/YY",
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-              ),
-            ),
-            const SizedBox(height: 16),
-            const Text("Banka Seçin", style: TextStyle(fontSize: 16)),
-            const SizedBox(height: 8),
-            DropdownButtonFormField<String>(
-              value: _selectedBank,
-              items: const [
-                DropdownMenuItem(value: "Rysgal", child: Text("Rysgal")),
-                DropdownMenuItem(value: "Senagat", child: Text("Senagat")),
-                DropdownMenuItem(value: "Turkmenbashi", child: Text("Türkmenbaşy")),
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Familiýasy Ady',
+                      style: AppTextStyles.inputUnderText,
+                    ),
+                    const SizedBox(height: 8),
+                    StringFiled(
+                      hintText: "Familiýasy Ady",
+                      controller: _cardHolderNameController,
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Kart belgisi',
+                      style: AppTextStyles.inputUnderText,
+                    ),
+                    const SizedBox(height: 8),
+                    StringFiled(
+                      hintText: "Kart belgisi",
+                      controller: _cardNumberController,
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Kartyň Möhleti',
+                      style: AppTextStyles.inputUnderText,
+                    ),
+                    const SizedBox(height: 8),
+                    StringFiled(
+                      hintText: "( Aý / Ýyl )",
+                      controller: _expiryDateController,
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Bank saýla',
+                      style: AppTextStyles.inputUnderText,
+                    ),
+                    const SizedBox(height: 8),
+                    CustomDropdown(
+                      selectedValue: _selectedBank,
+                      // 'value' yerine 'selectedValue' kullanılıyor
+                      items: [
+                        'Altyn asyr kart (beýleki banklar)',
+                        'Rysgal bank',
+                        'TDYDB (ýnesh) bank',
+                        'Senagat bank'
+                      ],
+                      hintText: 'Bank saýla',
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedBank = value;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 24),
+
+
+                CustomContinueButton(
+                  onPressed: _saveCardInfo,
+                  text: 'Karty goş',
+                ),
               ],
-              onChanged: (value) {
-                setState(() {
-                  _selectedBank = value;
-                });
-              },
-              decoration: InputDecoration(
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-              ),
             ),
-            const SizedBox(height: 24),
-            Center(
-              child: ElevatedButton(
-                onPressed: _saveCardInfo,
-                child: const Text("Kartı Kaydet"),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

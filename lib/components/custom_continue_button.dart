@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class CustomContinueButton extends StatelessWidget {
   final VoidCallback onPressed; // Butona basıldığında çalışacak işlev
+  final String text; // Buton üzerindeki metin
 
   const CustomContinueButton({
     Key? key,
     required this.onPressed,
+    required this.text, // Buton üzerindeki metni zorunlu hale getiriyoruz
   }) : super(key: key);
 
   @override
@@ -21,9 +23,9 @@ class CustomContinueButton extends StatelessWidget {
           ),
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0), // İç dolgu
         ),
-        child: const Text(
-          'Dowam et', // Buton üzerindeki metin
-          style: TextStyle(
+        child: Text(
+          text, // Buton üzerindeki dinamik metin
+          style: const TextStyle(
             color: Colors.black, // Metin rengi
             fontSize: 16,
             fontWeight: FontWeight.bold,

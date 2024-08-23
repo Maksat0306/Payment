@@ -10,7 +10,8 @@ import "../components/custom_payment_button.dart";
 import "../components/custom_text_button.dart";
 import "../components/dropdown.dart";
 import "../components/text_filed.dart";
-import '../providers.dart'; // Sağlayıcılar için dosya
+import '../providers.dart';
+import "../utils/text_styles.dart"; // Sağlayıcılar için dosya
 
 class TmcellScreen extends ConsumerStatefulWidget {
   const TmcellScreen({super.key});
@@ -154,13 +155,7 @@ class _TmcellScreenState extends ConsumerState<TmcellScreen> {
                     children: [
                       const Text(
                         'Mukdar',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 13,
-                          fontFamily: 'ClashDisplay',
-                          fontWeight: FontWeight.w500,
-                          height: 0,
-                        ),
+                        style: AppTextStyles.inputUnderText,
                       ),
                       const SizedBox(height: 8),
                       NumberField(
@@ -216,7 +211,8 @@ class _TmcellScreenState extends ConsumerState<TmcellScreen> {
                     ),
                     message: 'Tölegi şu bank kartlary arkal...',
                     highlightedText: const TextSpan(
-                      text: 'Altyn asyr kart (beýleki banklar), Rysgal bank, TDYDB (vnesh)(bank, Senagat bank',
+                      text:
+                          'Altyn asyr kart (beýleki banklar), Rysgal bank, TDYDB (vnesh)(bank, Senagat bank',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: Colors.white,
@@ -238,12 +234,15 @@ class _TmcellScreenState extends ConsumerState<TmcellScreen> {
                         _isDropdownValid = selectedCard.state != null;
                       });
 
-                      if (formKey.currentState?.validate() == true && _isDropdownValid) {
-                        print('Ödeme işlemi başlatıldı: ${amountController.text} TMT');
+                      if (formKey.currentState?.validate() == true &&
+                          _isDropdownValid) {
+                        print(
+                            'Ödeme işlemi başlatıldı: ${amountController.text} TMT');
 
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const VerificationScreen()),
+                          MaterialPageRoute(
+                              builder: (context) => const VerificationScreen()),
                         );
                       } else {
                         setState(() {});
