@@ -55,7 +55,7 @@ class FieldText extends StatelessWidget {
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10), // Odaklandığında kenarların yuvarlatılması
-            borderSide: const BorderSide(color: Color(0xFF4D4F51), width: 0.8), // Odaklanıldığında kenar çizgisinin rengi ve kalınlığı
+            borderSide: const BorderSide(color: Color(0xFF4D4F51), width: 1.0), // Odaklanıldığında kenar çizgisinin rengi ve kalınlığı
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8), // Hata durumunda kenarların yuvarlatılması
@@ -63,7 +63,7 @@ class FieldText extends StatelessWidget {
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10), // Odaklanıldığında ve hata olduğunda kenarların yuvarlatılması
-            borderSide: const BorderSide(color: Colors.red, width: 1.2), // Hata durumunda odaklanıldığında kenar çizgisinin rengi ve kalınlığı
+            borderSide: const BorderSide(color: Colors.red, width: 1.0), // Hata durumunda odaklanıldığında kenar çizgisinin rengi ve kalınlığı
           ),
           suffixIcon: suffixIcon != null
               ? IconButton(
