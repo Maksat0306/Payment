@@ -75,3 +75,45 @@ class StringFiled extends StatelessWidget {
     );
   }
 }
+
+
+
+class SpaceInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue,
+      TextEditingValue newValue,
+      ) {
+    // Yeni metinden boşlukları kaldır
+    final text = newValue.text.replaceAll(' ', '');
+
+    // Eğer metin uzunluğu 16'dan fazlaysa, eski değeri döndür
+    if (text.length > 16) {
+      return oldValue;
+    }
+
+    // Metni boşluklarla biçimlendirmek için bir StringBuffer kullanıyoruz
+    final buffer = StringBuffer();
+
+    for (int i = 0; i < text.length; i++) {
+      buffer.write(text[i]); // Karakteri ekle
+      final nonSpaceCharacters = i + 1; // Toplam karakter sayısı (boşluksuz)
+      if (nonSpaceCharacters % 4 == 0 && nonSpaceCharacters != text.length) {
+        buffer.write(' '); // Her 4 karakterde bir boşluk ekle
+      }
+    }
+
+    // Son haliyle yeni metni alıyoruz
+    final newText = buffer.toString();
+
+    // Seçim aralığını metnin sonuna ayarlayarak yeni değeri döndürüyoruz
+    return newValue.copyWith(
+      text: newText,
+      selection: TextSelection.collapsed(offset: newText.length),
+    );
+  }
+}
+
+
+
+

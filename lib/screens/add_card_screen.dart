@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:toleg/components/custom_continue_button.dart';
 import '../components/custom_dropdown.dart';
@@ -101,6 +102,9 @@ class _AddCardScreenState extends State<AddCardScreen> {
                     StringFiled(
                       hintText: "Kart belgisi",
                       controller: _cardNumberController,
+                      inputFormatters: [
+                        SpaceInputFormatter(), // Her 4 karakterde bir boşluk ekle, maksimum 16 karakter
+                      ],
                     ),
                   ],
                 ),
@@ -115,6 +119,10 @@ class _AddCardScreenState extends State<AddCardScreen> {
                     StringFiled(
                       hintText: "( Aý / Ýyl )",
                       controller: _expiryDateController,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly, // Sadece sayısal girişe izin verir
+                        LengthLimitingTextInputFormatter(4), // Maksimum 4 haneli sayısal girişe izin verir
+                      ],
                     ),
                   ],
                 ),

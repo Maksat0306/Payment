@@ -5,7 +5,7 @@ import '../constants/colors.dart';
 class Money extends StatelessWidget {
   const Money({super.key});
 
-  final double value = 104.44; // Sunucudan gelen double değer
+  final double value = 64.10; // Sunucudan gelen double değer
 
   @override
   Widget build(BuildContext context) {
