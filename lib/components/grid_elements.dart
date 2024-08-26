@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:toleg/constants/colors.dart';
 
+import '../utils/text_styles.dart';
+
 class ServiceCard extends StatelessWidget {
   final Widget icon;
   final String title;
@@ -34,12 +36,7 @@ class ServiceCard extends StatelessWidget {
               const SizedBox(height: 20),
               Text(
                 title,
-                style: const TextStyle(
-                  fontFamily: "ClashDisplay",
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.darkText,
-                ),
+                style:AppTextStyles.gridItemText,
               ),
             ],
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:toleg/components/custom_continue_button.dart';
 import '../components/custom_dropdown.dart';
@@ -8,14 +9,14 @@ import '../constants/colors.dart';
 import '../models.dart';
 import '../utils/text_styles.dart';
 
-class AddCardScreen extends StatefulWidget {
+class AddCardScreen extends ConsumerStatefulWidget {
   const AddCardScreen({super.key});
 
   @override
-  State<AddCardScreen> createState() => _AddCardScreenState();
+  _AddCardScreenState createState() => _AddCardScreenState();
 }
 
-class _AddCardScreenState extends State<AddCardScreen> {
+class _AddCardScreenState extends ConsumerState<AddCardScreen> {
   final TextEditingController _cardHolderNameController =
       TextEditingController();
   final TextEditingController _cardNumberController = TextEditingController();

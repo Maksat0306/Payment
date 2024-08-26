@@ -17,21 +17,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        scaffoldBackgroundColor: AppColors.darkBackgraund, // Genel arka plan rengi
-        appBarTheme: AppBarTheme(
-          toolbarHeight: 70,
-          backgroundColor: AppColors.darkCard,
-          titleTextStyle: AppTextStyles.appBarStyle,
-          actionsIconTheme: IconThemeData(
-            color: Colors.white,
-            size: 26,
+    return MediaQuery(
+      data: MediaQueryData.fromWindow(WidgetsBinding.instance.window)
+          .copyWith(textScaleFactor: 1.0),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          scaffoldBackgroundColor: AppColors.darkBackgraund, // Genel arka plan rengi
+          appBarTheme: AppBarTheme(
+            toolbarHeight: 70,
+            backgroundColor: AppColors.darkCard,
+            titleTextStyle: AppTextStyles.appBarStyle,
+            actionsIconTheme: IconThemeData(
+              color: Colors.white,
+              size: 26,
+            ),
           ),
         ),
+        home: const HomeScreen(),
       ),
-      home: const HomeScreen(),
     );
   }
 }

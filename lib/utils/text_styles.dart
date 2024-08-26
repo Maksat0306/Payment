@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../constants/colors.dart';
+
 class AppTextStyles {
   // Başlıklar için genel stil
   static const TextStyle titleStyle = TextStyle(
@@ -28,12 +30,19 @@ class AppTextStyles {
   );
 
   // Vurgulu metinler için stil
-  static const TextStyle highlightedStyle = TextStyle(
-    color: Colors.blue,
-    fontSize: 18,
-    fontFamily: 'ClashDisplay',
-    fontWeight: FontWeight.w600,
-    height: 1.2,
+  static const TextStyle gridItemText = TextStyle(
+    fontFamily: "ClashDisplay",
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: AppColors.darkText,
+  );
+
+  // Vurgulu metinler için stil
+  static const TextStyle cardText = TextStyle(
+    fontFamily: "ClashDisplay",
+    fontSize: 20,
+    fontWeight: FontWeight.w500,
+    color: AppColors.darkText,
   );
 
   // Buton metinleri için stil
