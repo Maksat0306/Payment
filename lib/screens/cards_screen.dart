@@ -6,10 +6,15 @@ import '../models.dart'; // Kart bilgileri için kullanılan modelin dosyasını
 import '../providers.dart';
 import 'add_card_screen.dart'; // Yeni kart eklemek için kullanılan ekranın dosyasını import ediyoruz.
 
-class CardsScreen extends ConsumerWidget {
+class CardsScreen extends ConsumerStatefulWidget {
   const CardsScreen({super.key});
 
-  final List<CardInfo> _cards = []; // Kart bilgilerini tutan liste
+  @override
+  _CardsScreenState createState() => _CardsScreenState();
+}
+
+class _CardsScreenState extends ConsumerState<CardsScreen> {
+  final List<CardInfo> _cards = [];
 
   // Yeni bir kart eklemek için kullanılan işlev
   void _addNewCard(CardInfo cardInfo) {
@@ -19,10 +24,10 @@ class CardsScreen extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final cardHolder = ref.watch(cardNameProvider);
     final cardNumber = ref.watch(cardNumberProvider);
-    final expiryDate = ref.watch(cardNumberProvider);
+    final expiryDate = ref.watch(expiryDateProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -59,9 +64,9 @@ class CardsScreen extends ConsumerWidget {
         itemBuilder: (context, index) {
           final card = _cards[index]; // Listedeki mevcut kart
           return CustomCard(
-            cardHolderName: card.cardHolderName,
-            cardNumber: card.cardNumber,
-            expiryDate: card.expiryDate,
+            cardHolderName: cardHolder,
+            cardNumber: cardNumber,
+            expiryDate: expiryDate,
             bankName: card.bankName,
           );
         },
