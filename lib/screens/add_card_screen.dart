@@ -7,6 +7,7 @@ import '../components/custom_dropdown.dart';
 import '../components/string_filed.dart';
 import '../constants/colors.dart';
 import '../models.dart';
+import '../providers.dart';
 import '../utils/text_styles.dart';
 
 class AddCardScreen extends ConsumerStatefulWidget {
@@ -17,22 +18,21 @@ class AddCardScreen extends ConsumerStatefulWidget {
 }
 
 class _AddCardScreenState extends ConsumerState<AddCardScreen> {
-  final TextEditingController _cardHolderNameController =
-      TextEditingController();
-  final TextEditingController _cardNumberController = TextEditingController();
-  final TextEditingController _expiryDateController = TextEditingController();
-  String? _selectedBank;
+  late TextEditingController cardHolderNameController;
+  late TextEditingController cardNumberController;
+  late TextEditingController expiryDateController;
+  String? selectedBank;
 
   void _saveCardInfo() {
-    if (_selectedBank != null &&
-        _cardHolderNameController.text.isNotEmpty &&
-        _cardNumberController.text.isNotEmpty &&
-        _expiryDateController.text.isNotEmpty) {
+    if (selectedBank != null &&
+        cardHolderNameController.text.isNotEmpty &&
+        cardNumberController.text.isNotEmpty &&
+        expiryDateController.text.isNotEmpty) {
       final cardInfo = CardInfo(
-        cardHolderName: _cardHolderNameController.text,
-        cardNumber: _cardNumberController.text,
-        expiryDate: _expiryDateController.text,
-        bankName: _selectedBank!,
+        cardHolderName: cardHolderNameController.text,
+        cardNumber: cardNumberController.text,
+        expiryDate: expiryDateController.text,
+        bankName: selectedBank!,
       );
 
       Navigator.pop(context, cardInfo);
@@ -41,6 +41,39 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen> {
         const SnackBar(content: Text('Lütfen tüm alanları doldurun')),
       );
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    final cardHolder = ref.read(cardNameProvider);
+    final cardNumber = ref.read(cardNumberProvider);
+    final expiryDate = ref.read(cardNumberProvider);
+
+    cardHolderNameController = TextEditingController(text: cardHolder);
+    cardNumberController = TextEditingController(text: cardNumber);
+    expiryDateController = TextEditingController(text: expiryDate);
+
+    cardHolderNameController.addListener(() {
+      ref.read(phoneProvider.notifier).state = cardHolderNameController.text;
+    });
+
+    cardNumberController.addListener(() {
+      ref.read(amountProvider.notifier).state = cardNumberController.text;
+    });
+
+    cardNumberController.addListener(() {
+      ref.read(amountProvider.notifier).state = cardNumberController.text;
+    });
+  }
+
+  @override
+  void dispose() {
+    cardHolderNameController.dispose();
+    cardNumberController.dispose();
+    expiryDateController.dispose();
+    super.dispose();
   }
 
   @override
@@ -88,7 +121,7 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen> {
                     const SizedBox(height: 8),
                     StringFiled(
                       hintText: "Familiýasy Ady",
-                      controller: _cardHolderNameController,
+                      controller: cardHolderNameController,
                     ),
                   ],
                 ),
@@ -102,9 +135,10 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen> {
                     const SizedBox(height: 8),
                     StringFiled(
                       hintText: "Kart belgisi",
-                      controller: _cardNumberController,
+                      controller: cardNumberController,
                       inputFormatters: [
-                        SpaceInputFormatter(), // Her 4 karakterde bir boşluk ekle, maksimum 16 karakter
+                        SpaceInputFormatter(),
+                        // Her 4 karakterde bir boşluk ekle, maksimum 16 karakter
                       ],
                     ),
                   ],
@@ -119,10 +153,12 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen> {
                     const SizedBox(height: 8),
                     StringFiled(
                       hintText: "( Aý / Ýyl )",
-                      controller: _expiryDateController,
+                      controller: expiryDateController,
                       inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly, // Sadece sayısal girişe izin verir
-                        LengthLimitingTextInputFormatter(4), // Maksimum 4 haneli sayısal girişe izin verir
+                        FilteringTextInputFormatter.digitsOnly,
+                        // Sadece sayısal girişe izin verir
+                        LengthLimitingTextInputFormatter(4),
+                        // Maksimum 4 haneli sayısal girişe izin verir
                       ],
                     ),
                   ],
@@ -136,7 +172,7 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen> {
                     ),
                     const SizedBox(height: 8),
                     CustomDropdown(
-                      selectedValue: _selectedBank,
+                      selectedValue: selectedBank,
                       // 'value' yerine 'selectedValue' kullanılıyor
                       items: [
                         'Altyn asyr kart (beýleki banklar)',
@@ -147,16 +183,13 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen> {
                       hintText: 'Bank saýla',
                       onChanged: (value) {
                         setState(() {
-                          _selectedBank = value;
+                          selectedBank = value;
                         });
                       },
                     ),
                   ],
                 ),
-
                 const SizedBox(height: 24),
-
-
                 CustomContinueButton(
                   onPressed: _saveCardInfo,
                   text: 'Karty goş',

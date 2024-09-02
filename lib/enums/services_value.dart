@@ -14,7 +14,7 @@ enum SevicesValue {
       case SevicesValue.tmcell:
         return 'TMCell';
       case SevicesValue.telecom:
-        return 'Telekom Internet';
+        return 'Telekom\nInternet';
       case SevicesValue.astu:
         return 'AŞTU Internet';
       case SevicesValue.astuTelefon:

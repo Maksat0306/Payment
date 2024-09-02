@@ -33,7 +33,7 @@ class ServiceCard extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: icon,  // Burada ikon widget'ınız bulunuyor
               ),
-              const SizedBox(height: 20),
+              // const SizedBox(height: 10),
               Text(
                 title,
                 style:AppTextStyles.gridItemText,

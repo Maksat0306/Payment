@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import '../components/custom_card.dart';
 import '../models.dart'; // Kart bilgileri için kullanılan modelin dosyasını import ediyoruz.
+import '../providers.dart';
 import 'add_card_screen.dart'; // Yeni kart eklemek için kullanılan ekranın dosyasını import ediyoruz.
 
-class CardsScreen extends StatefulWidget {
+class CardsScreen extends ConsumerWidget {
   const CardsScreen({super.key});
 
-  @override
-  State<CardsScreen> createState() => _CardsScreenState();
-}
-
-class _CardsScreenState extends State<CardsScreen> {
   final List<CardInfo> _cards = []; // Kart bilgilerini tutan liste
 
   // Yeni bir kart eklemek için kullanılan işlev
@@ -22,7 +19,11 @@ class _CardsScreenState extends State<CardsScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final cardHolder = ref.watch(cardNameProvider);
+    final cardNumber = ref.watch(cardNumberProvider);
+    final expiryDate = ref.watch(cardNumberProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Kartlarym"), // AppBar'da görüntülenen başlık
