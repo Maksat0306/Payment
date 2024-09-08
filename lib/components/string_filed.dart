@@ -87,32 +87,29 @@ class SpaceInputFormatter extends TextInputFormatter {
     // Yeni metinden boşlukları kaldır
     final text = newValue.text.replaceAll(' ', '');
 
-    // Eğer metin uzunluğu 16'dan fazlaysa, eski değeri döndür
+    // Metin 16 karakterden fazla ise eski değeri döndür (metni kes)
     if (text.length > 16) {
       return oldValue;
     }
 
-    // Metni boşluklarla biçimlendirmek için bir StringBuffer kullanıyoruz
+    // StringBuffer ile boşlukları ekleyerek metni formatla
     final buffer = StringBuffer();
-
     for (int i = 0; i < text.length; i++) {
-      buffer.write(text[i]); // Karakteri ekle
-      final nonSpaceCharacters = i + 1; // Toplam karakter sayısı (boşluksuz)
+      buffer.write(text[i]);
+      int nonSpaceCharacters = i + 1;
       if (nonSpaceCharacters % 4 == 0 && nonSpaceCharacters != text.length) {
-        buffer.write(' '); // Her 4 karakterde bir boşluk ekle
+        buffer.write(' '); // Her 4 karakterden sonra boşluk ekle
       }
     }
 
-    // Son haliyle yeni metni alıyoruz
     final newText = buffer.toString();
-
-    // Seçim aralığını metnin sonuna ayarlayarak yeni değeri döndürüyoruz
-    return newValue.copyWith(
+    return TextEditingValue(
       text: newText,
       selection: TextSelection.collapsed(offset: newText.length),
     );
   }
 }
+
 
 
 

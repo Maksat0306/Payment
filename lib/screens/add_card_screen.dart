@@ -76,6 +76,8 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen> {
     super.dispose();
   }
 
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -136,10 +138,13 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen> {
                     StringFiled(
                       hintText: "Kart belgisi",
                       controller: cardNumberController,
-                      inputFormatters: [
-                        SpaceInputFormatter(),
-                        // Her 4 karakterde bir boşluk ekle, maksimum 16 karakter
-                      ],
+                      inputFormatters: [SpaceInputFormatter()],
+                      validator: (value) {
+                        if (value == null || value.replaceAll(' ', '').length != 16) {
+                          return 'Lütfen tam 16 karakter giriniz.';
+                        }
+                        return null;
+                      },
                     ),
                   ],
                 ),
@@ -191,7 +196,11 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen> {
                 ),
                 const SizedBox(height: 24),
                 CustomContinueButton(
-                  onPressed: _saveCardInfo,
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      _saveCardInfo();
+                    }
+                  },
                   text: 'Karty goş',
                 ),
               ],
