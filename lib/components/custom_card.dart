@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
@@ -9,13 +11,13 @@ class CustomCard extends StatelessWidget {
   final String expiryDate; // Son kullanma tarihi
   final String bankName; // Banka adı
 
-  CustomCard(
-      {super.key,
-      required this.cardHolderName,
-      required this.cardNumber,
-      required this.expiryDate,
-      required this.bankName,
-      });
+  CustomCard({
+    super.key,
+    required this.cardHolderName,
+    required this.cardNumber,
+    required this.expiryDate,
+    required this.bankName,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +32,8 @@ class CustomCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '•••• •••• •••• ${cardNumber.substring(cardNumber.length - 4)}',
-              // Kart numarasının son dört hanesini gösterir
+              '•••• •••• •••• ${cardNumber.substring(max(0, cardNumber.length - 4))}',
+              // Kart numarasının son dört hanesini güvenli bir şekilde gösterir
               style: AppTextStyles.cardText,
             ),
             Text(
@@ -45,10 +47,8 @@ class CustomCard extends StatelessWidget {
           style: AppTextStyles.cardText,
         ),
         tileColor: AppColors.darkCard, // Arka plan rengini ayarlıyoruz
-        // Kartın arka plan rengi
         shape: RoundedRectangleBorder(
-          borderRadius:
-              BorderRadius.circular(16), // Kartın köşelerinin yuvarlanması
+          borderRadius: BorderRadius.circular(16), // Kartın köşelerinin yuvarlanması
         ),
       ),
     );

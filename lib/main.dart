@@ -1,12 +1,17 @@
-import "package:flutter/material.dart";
-import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:toleg/screens/home_screen.dart";
-import "package:toleg/utils/text_styles.dart";
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toleg/screens/home_screen.dart';
+import 'package:toleg/utils/text_styles.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'constants/colors.dart'; // AppColors sabitleri için
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // Hive için gerekli olan başlatma
+  await Hive.initFlutter();
+
   runApp(
-    ProviderScope(
+    const ProviderScope(
       child: MyApp(),
     ),
   );
@@ -24,7 +29,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           scaffoldBackgroundColor: AppColors.darkBackgraund, // Genel arka plan rengi
-          appBarTheme: AppBarTheme(
+          appBarTheme: const AppBarTheme(
             toolbarHeight: 70,
             backgroundColor: AppColors.darkCard,
             titleTextStyle: AppTextStyles.appBarStyle,
