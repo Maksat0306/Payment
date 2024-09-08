@@ -104,106 +104,109 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: Container(
-            decoration: BoxDecoration(
-              color: AppColors.darkCard,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Familiýasy Ady',
-                      style: AppTextStyles.inputUnderText,
-                    ),
-                    const SizedBox(height: 8),
-                    StringFiled(
-                      hintText: "Familiýasy Ady",
-                      controller: cardHolderNameController,
-                    ),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Kart belgisi',
-                      style: AppTextStyles.inputUnderText,
-                    ),
-                    const SizedBox(height: 8),
-                    StringFiled(
-                      hintText: "Kart belgisi",
-                      controller: cardNumberController,
-                      inputFormatters: [SpaceInputFormatter()],
-                      validator: (value) {
-                        if (value == null || value.replaceAll(' ', '').length != 16) {
-                          return 'Lütfen tam 16 karakter giriniz.';
-                        }
-                        return null;
-                      },
-                    ),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Kartyň Möhleti',
-                      style: AppTextStyles.inputUnderText,
-                    ),
-                    const SizedBox(height: 8),
-                    StringFiled(
-                      hintText: "( Aý / Ýyl )",
-                      controller: expiryDateController,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                        // Sadece sayısal girişe izin verir
-                        LengthLimitingTextInputFormatter(4),
-                        // Maksimum 4 haneli sayısal girişe izin verir
-                      ],
-                    ),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Bank saýla',
-                      style: AppTextStyles.inputUnderText,
-                    ),
-                    const SizedBox(height: 8),
-                    CustomDropdown(
-                      selectedValue: selectedBank,
-                      // 'value' yerine 'selectedValue' kullanılıyor
-                      items: [
-                        'Altyn asyr kart (beýleki banklar)',
-                        'Rysgal bank',
-                        'TDYDB (ýnesh) bank',
-                        'Senagat bank'
-                      ],
-                      hintText: 'Bank saýla',
-                      onChanged: (value) {
-                        setState(() {
-                          selectedBank = value;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 24),
-                CustomContinueButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      _saveCardInfo();
-                    }
-                  },
-                  text: 'Karty goş',
-                ),
-              ],
+          child: Form(
+            key: _formKey,  // FormState için GlobalKey kullanın.
+            child: Container(
+              decoration: BoxDecoration(
+                color: AppColors.darkCard,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Familiýasy Ady',
+                        style: AppTextStyles.inputUnderText,
+                      ),
+                      const SizedBox(height: 8),
+                      StringFiled(
+                        hintText: "Familiýasy Ady",
+                        controller: cardHolderNameController,
+                      ),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Kart belgisi',
+                        style: AppTextStyles.inputUnderText,
+                      ),
+                      const SizedBox(height: 8),
+                      StringFiled(
+                        hintText: "Kart belgisi",
+                        controller: cardNumberController,
+                        inputFormatters: [SpaceInputFormatter()],
+                        validator: (value) {
+                          if (value == null || value.replaceAll(' ', '').length != 16) {
+                            return 'Lütfen tam 16 karakter giriniz.';
+                          }
+                          return null;
+                        },
+                      ),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Kartyň Möhleti',
+                        style: AppTextStyles.inputUnderText,
+                      ),
+                      const SizedBox(height: 8),
+                      StringFiled(
+                        hintText: "( Aý / Ýyl )",
+                        controller: expiryDateController,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                          // Sadece sayısal girişe izin verir
+                          LengthLimitingTextInputFormatter(4),
+                          // Maksimum 4 haneli sayısal girişe izin verir
+                        ],
+                      ),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Bank saýla',
+                        style: AppTextStyles.inputUnderText,
+                      ),
+                      const SizedBox(height: 8),
+                      CustomDropdown(
+                        selectedValue: selectedBank,
+                        // 'value' yerine 'selectedValue' kullanılıyor
+                        items: [
+                          'Altyn asyr kart (beýleki banklar)',
+                          'Rysgal bank',
+                          'TDYDB (ýnesh) bank',
+                          'Senagat bank'
+                        ],
+                        hintText: 'Bank saýla',
+                        onChanged: (value) {
+                          setState(() {
+                            selectedBank = value;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 24),
+                  CustomContinueButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        _saveCardInfo();
+                      }
+                    },
+                    text: 'Karty goş',
+                  ),
+                ],
+              ),
             ),
           ),
         ),
