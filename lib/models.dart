@@ -1,7 +1,19 @@
-class CardInfo {
+import 'package:hive/hive.dart';
+
+part 'card_info.g.dart'; // Bu dosya Hive tarafından otomatik olarak oluşturulur
+
+@HiveType(typeId: 0)
+class CardInfo extends HiveObject {
+  @HiveField(0)
   final String cardHolderName;
+
+  @HiveField(1)
   final String cardNumber;
+
+  @HiveField(2)
   final String expiryDate;
+
+  @HiveField(3)
   final String bankName;
 
   CardInfo({
@@ -10,22 +22,4 @@ class CardInfo {
     required this.expiryDate,
     required this.bankName,
   });
-
-  // JSON'a dönüştürme
-  Map<String, dynamic> toJson() => {
-    'cardHolderName': cardHolderName,
-    'cardNumber': cardNumber,
-    'expiryDate': expiryDate,
-    'bankName': bankName,
-  };
-
-  // JSON'dan nesneye dönüştürme
-  factory CardInfo.fromJson(Map<String, dynamic> json) {
-    return CardInfo(
-      cardHolderName: json['cardHolderName'],
-      cardNumber: json['cardNumber'],
-      expiryDate: json['expiryDate'],
-      bankName: json['bankName'],
-    );
-  }
 }

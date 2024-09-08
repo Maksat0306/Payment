@@ -6,15 +6,13 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'constants/colors.dart'; // AppColors sabitleri için
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  // Hive için gerekli olan başlatma
-  await Hive.initFlutter();
+  void main() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Hive.initFlutter();
+    Hive.registerAdapter(CardInfoAdapter());
+    runApp(ProviderScope(child: MyApp()));
+  }
 
-  runApp(
-    const ProviderScope(
-      child: MyApp(),
-    ),
-  );
 }
 
 class MyApp extends StatelessWidget {
