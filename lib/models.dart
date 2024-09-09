@@ -1,8 +1,8 @@
 import 'package:hive/hive.dart';
 
-part "card_info.g.dart"; // Bu dosya Hive tarafından otomatik olarak oluşturulur
+part 'card_info.g.dart'; // Hive jeneratörü tarafından oluşturulacak dosya
 
-@HiveType(typeId: 0)
+@HiveType(typeId: 0) // typeId benzersiz olmalıdır
 class CardInfo extends HiveObject {
   @HiveField(0)
   final String cardHolderName;
