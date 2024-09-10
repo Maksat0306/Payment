@@ -3,7 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toleg/screens/home_screen.dart';
 import 'package:toleg/utils/text_styles.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'constants/colors.dart'; // AppColors sabitleri için
+import 'constants/colors.dart';
+import 'models.dart'; // AppColors sabitleri için
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
