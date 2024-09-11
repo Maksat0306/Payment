@@ -27,16 +27,19 @@ class _CardsScreenState extends ConsumerState<CardsScreen> {
 
   Future<void> _openBox() async {
     _box = await Hive.openBox<CardInfo>('cards');
-    _loadCards();
+    await _loadCards();
   }
 
   Future<void> _loadCards() async {
     if (_box != null) {
+      var cards = _box!.values.toList();
       setState(() {
-        _cards = _box!.values.toList();
+        _cards = cards;
       });
     }
   }
+
+
 
   @override
   void dispose() {
@@ -57,9 +60,11 @@ class _CardsScreenState extends ConsumerState<CardsScreen> {
       bankName: selectedBank,
     );
 
-    _box?.add(cardInfo);
-    setState(() {});
+    setState(() {
+      _cards.add(cardInfo);
+    });
   }
+
 
   @override
   Widget build(BuildContext context) {
