@@ -6,7 +6,8 @@ import 'package:toleg/components/custom_continue_button.dart';
 import '../components/custom_dropdown.dart';
 import '../components/string_filed.dart';
 import '../constants/colors.dart';
-import '../models.dart';
+import '../data/card_info_repo.dart';
+import '../data/models.dart';
 import '../providers.dart';
 import '../utils/text_styles.dart';
 
@@ -18,6 +19,7 @@ class AddCardScreen extends ConsumerStatefulWidget {
 }
 
 class _AddCardScreenState extends ConsumerState<AddCardScreen> {
+  final cardInfoRepo = CardInfoRepo();
   late TextEditingController cardHolderNameController;
   late TextEditingController cardNumberController;
   late TextEditingController expiryDateController;
@@ -28,14 +30,15 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen> {
         cardHolderNameController.text.isNotEmpty &&
         cardNumberController.text.isNotEmpty &&
         expiryDateController.text.isNotEmpty) {
-      final cardInfo = CardInfo(
-        cardHolderName: cardHolderNameController.text,
-        cardNumber: cardNumberController.text,
-        expiryDate: expiryDateController.text,
-        bankName: selectedBank!,
+      cardInfoRepo.addCardInfoList(
+        CardInfo(
+          cardHolderName: cardHolderNameController.text,
+          cardNumber: cardNumberController.text,
+          expiryDate: expiryDateController.text,
+          bankName: selectedBank!,
+        ),
       );
-
-      Navigator.pop(context, cardInfo);
+      Navigator.pop(context);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Lütfen tüm alanları doldurun')),
@@ -105,7 +108,7 @@ class _AddCardScreenState extends ConsumerState<AddCardScreen> {
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Form(
-            key: _formKey,  // FormState için GlobalKey kullanın.
+            key: _formKey, // FormState için GlobalKey kullanın.
             child: Container(
               decoration: BoxDecoration(
                 color: AppColors.darkCard,

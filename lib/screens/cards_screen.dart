@@ -1,11 +1,9 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hive/hive.dart';
 import '../components/custom_card.dart';
-import '../models.dart';
-import '../providers.dart';
+import '../data/card_info_repo.dart';
+import '../data/models.dart';
 import 'add_card_screen.dart';
 
 class CardsScreen extends ConsumerStatefulWidget {
@@ -16,58 +14,11 @@ class CardsScreen extends ConsumerStatefulWidget {
 }
 
 class _CardsScreenState extends ConsumerState<CardsScreen> {
-  List<CardInfo> _cards = [];
-  Box<CardInfo>? _box;
-
-  @override
-  void initState() {
-    super.initState();
-    _openBox();
-  }
-
-  Future<void> _openBox() async {
-    _box = await Hive.openBox<CardInfo>('cards');
-    await _loadCards();
-  }
-
-  Future<void> _loadCards() async {
-    if (_box != null) {
-      var cards = _box!.values.toList();
-      setState(() {
-        _cards = cards;
-      });
-    }
-  }
-
-
-
-  @override
-  void dispose() {
-    _box?.close();
-    super.dispose();
-  }
-
-  void _addNewCard() async {
-    final cardHolderName = ref.read(cardNameProvider);
-    final cardNumber = ref.read(cardNumberProvider);
-    final expiryDate = ref.read(expiryDateProvider);
-    final selectedBank = ref.read(selectedBankProvider) ?? "Bilinmeyen Banka";
-
-    final cardInfo = CardInfo(
-      cardHolderName: cardHolderName,
-      cardNumber: cardNumber,
-      expiryDate: expiryDate,
-      bankName: selectedBank,
-    );
-
-    setState(() {
-      _cards.add(cardInfo);
-    });
-  }
-
+  final cardInfoRepo = CardInfoRepo();
 
   @override
   Widget build(BuildContext context) {
+    final cards = cardInfoRepo.getCardInfoList();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Kartlarym"),
@@ -75,33 +26,28 @@ class _CardsScreenState extends ConsumerState<CardsScreen> {
           Padding(
             padding: const EdgeInsets.only(right: 20),
             child: GestureDetector(
-              onTap: () async {
-                final newCard = await Navigator.push<CardInfo>(
+              onTap: () {
+                Navigator.push<CardInfo>(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => const AddCardScreen()),
-                );
-                if (newCard != null) {
-                  _addNewCard();
-                }
+                  MaterialPageRoute(builder: (context) => const AddCardScreen()),
+                ).then((v) => setState(() {}));
               },
-              child: SvgPicture.asset("assets/images/plus.svg",
-                  height: 26, width: 26),
+              child: SvgPicture.asset("assets/images/plus.svg", height: 26, width: 26),
             ),
           ),
         ],
       ),
-      body: _cards.isEmpty
-          ? Center(child: Text('Henüz kart eklenmedi.'))
+      body: cards?.isEmpty ?? false
+          ? const Center(child: Text('Henüz kart eklenmedi.'))
           : ListView.builder(
-              itemCount: _cards.length,
+              itemCount: cards?.length,
               itemBuilder: (context, index) {
-                final card = _cards[index];
+                final card = cards?[index];
                 return CustomCard(
-                  cardHolderName: card.cardHolderName,
-                  cardNumber: card.cardNumber,
-                  expiryDate: card.expiryDate,
-                  bankName: card.bankName,
+                  cardHolderName: card?.cardHolderName ?? '',
+                  cardNumber: card?.cardNumber ?? '',
+                  expiryDate: card?.expiryDate ?? '',
+                  bankName: card?.bankName ?? '',
                 );
               },
             ),
