@@ -44,8 +44,7 @@ class OtherGridElements extends StatelessWidget {
                     color: AppColors.darkText,
                   ),
                 ),
-              )
-
+              ),
             ],
           ),
         ),
