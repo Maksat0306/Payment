@@ -40,7 +40,7 @@ class AppTextStyles {
   // Vurgulu metinler için stil
   static const TextStyle cardText = TextStyle(
     fontFamily: "ClashDisplay",
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: FontWeight.w500,
     color: AppColors.darkText,
   );

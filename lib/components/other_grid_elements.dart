@@ -31,7 +31,7 @@ class OtherGridElements extends StatelessWidget {
                 alignment: Alignment.center,
                 child: icon,  // Burada ikon widget'ınız bulunuyor
               ),
-              const SizedBox(height: 8),
+              // const SizedBox(height: 8),
               Align(
                 alignment: Alignment.center,
                 child: Text(

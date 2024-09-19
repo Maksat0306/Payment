@@ -22,7 +22,7 @@ class CustomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.only(right: 16, left: 16, top: 16),
       child: ListTile(
         title: Text(
           cardHolderName, // Kart sahibinin adını gösterir
@@ -42,13 +42,17 @@ class CustomCard extends StatelessWidget {
             ),
           ],
         ),
-        trailing: Text(
-          expiryDate, // Kartın son kullanma tarihini gösterir
-          style: AppTextStyles.cardText,
+        trailing: Column(
+          children: [
+            Text(
+              expiryDate, // Kartın son kullanma tarihini gösterir
+              style: AppTextStyles.cardText,
+            ),
+          ],
         ),
         tileColor: AppColors.darkCard, // Arka plan rengini ayarlıyoruz
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16), // Kartın köşelerinin yuvarlanması
+          borderRadius: BorderRadius.circular(10), // Kartın köşelerinin yuvarlanması
         ),
       ),
     );
